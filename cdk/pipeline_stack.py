@@ -29,9 +29,9 @@ class PipelineStack(core.Stack):
                 action_name='Github',
                 output=source_artifact,
                 oauth_token=core.SecretValue.secrets_manager('github-token'),
-                owner='magnus255',
-                repo='cdkpipeline',
-                branch='lambda/django',
+                owner=params['owner'],
+                repo=params['repo'],
+                branch=params['branch'],
                 trigger=cpations.GitHubTrigger.POLL,
             ),
             synth_action=pipelines.SimpleSynthAction(
