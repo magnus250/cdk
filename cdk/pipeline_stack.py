@@ -3,7 +3,6 @@ from aws_cdk import (
     aws_codepipeline as codepipeline,
     aws_codepipeline_actions as cpations,
     pipelines,
-    aws_ssm as ssm,
 )
 
 from cdk.web_service import WebServiceStage
@@ -29,13 +28,7 @@ class PipelineStack(core.Stack):
             source_action=cpations.GitHubSourceAction(
                 action_name='Github',
                 output=source_artifact,
-                oauth_token=core.SecretValue(
-                    ssm.StringParameter.from_secure_string_parameter_attributes(
-                        self, f"{params['prefix']}-oauth-key",
-                        parameter_name='github-token-magnus250',
-                        version=1,
-                    ).string_value
-                ),
+                oauth_token=core.SecretValue.secrets_manager('github-token'),
                 owner='magnus255',
                 repo='cdkpipeline',
                 branch='lambda/django',
