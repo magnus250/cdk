@@ -1,1 +1,20 @@
--e .
+attrs==21.2.0
+aws-cdk.aws-lambda==1.117.0
+aws-cdk.aws-apigateway==1.117.0
+aws-cdk.aws-codepipeline==1.117.0
+aws-cdk.aws-codepipeline-actions==1.117.0
+aws-cdk.aws-pipelines==1.117.0
+
+aws-cdk.cloud-assembly-schema==1.117.0
+aws-cdk.core==1.117.0
+aws-cdk.cx-api==1.117.0
+aws-cdk.region-info==1.117.0
+cattrs==1.7.1
+# Editable Git install with no remote (cdk==0.0.1)
+-e /home/magnus/Desktop/aws_cdk_tests/cdk/cdk
+constructs==3.3.127
+jsii==1.33.0
+publication==0.0.3
+python-dateutil==2.8.2
+six==1.16.0
+typing-extensions==3.10.0.0
