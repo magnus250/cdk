@@ -56,3 +56,7 @@ command.
  * `cdk docs`        open CDK documentation
 
 Enjoy!
+
+
+cdk synth --profile magnus255
+cdk bootstrap --cloudformation-execution-policies arn:aws:iam::aws:policy/AdministratorAccess --profile magnus255
