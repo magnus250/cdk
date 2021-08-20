@@ -13,5 +13,4 @@ class WebServiceStage(core.Stage):
             self,
             f"{params['prefix']}-service-stack",
             params=params,
-            synthesizer=DefaultStackSynthesizer()
         )
