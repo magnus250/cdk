@@ -5,14 +5,14 @@ from dotenv import load_dotenv
 
 from aws_cdk import core
 
-from cdk import WebServiceStack
+from cdk import BackendStack
 
 
 load_dotenv('secrets/local.env')
 
 params = dict(
     root_dir=os.path.dirname(__file__),
-    prefix='web-service-base',
+    prefix='cdk-base',
     env=dict(
         account=os.environ['AWS_ACCOUNT'],
         region=os.environ['AWS_REGION'],
@@ -23,6 +23,6 @@ params = dict(
 )
 app = core.App()
 
-WebServiceStack(app, f"{params['prefix']}-stack", params=params)
+BackendStack(app, f"{params['prefix']}-django-stack", params=params)
 
 app.synth()

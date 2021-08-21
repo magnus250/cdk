@@ -2,32 +2,32 @@ import os
 
 from aws_cdk import (
     core,
-    aws_lambda as lmb,
-    aws_apigateway as apigw,
+    aws_lambda as _lambda,
+    aws_apigateway as apigateway,
 )
 
 
-class WebServiceStack(core.Stack):
+class BackendStack(core.Stack):
 
     def __init__(self, scope: core.Construct, construct_id: str,
                  *, params: dict, **kwargs) -> None:
         super().__init__(scope, construct_id, **kwargs)
 
-        handler = lmb.DockerImageFunction(
+        prefix = f"{params['prefix']}-backend"
+        handler = _lambda.DockerImageFunction(
             self,
-            f"{params['prefix']}-lambda-image",
-            code=lmb.DockerImageCode.from_image_asset(
+            f"{prefix}-lambda-image",
+            code=_lambda.DockerImageCode.from_image_asset(
                 os.path.join(params['root_dir'], 'src')
             ),
         )
 
-        base_api = apigw.RestApi(
+        base_api = apigateway.RestApi(
             self,
-            f"{params['prefix']}-rest-api",
-            rest_api_name=f"{params['prefix']}-rest-api-name",
+            f"{prefix}-rest-api"
         )
 
-        get_widgets_integration = apigw.LambdaIntegration(
+        get_widgets_integration = apigateway.LambdaIntegration(
             handler,
             request_templates={"application/json": '{ "statusCode": "200" }'}
         )
@@ -35,7 +35,6 @@ class WebServiceStack(core.Stack):
         base_api.root.add_method("GET", get_widgets_integration)  # GET /
 
         core.CfnOutput(
-            self, f"{params['prefix']}-url",
-            value=base_api.url,
-            export_name=f"{params['prefix']}-url"
+            self, f"{prefix}-api-url",
+            value=base_api.url
         )
