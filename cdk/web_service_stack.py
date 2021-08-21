@@ -17,7 +17,7 @@ class WebServiceStack(core.Stack):
             self,
             f"{params['prefix']}-lambda-image",
             code=lmb.DockerImageCode.from_image_asset(
-                os.path.join(params['root_dir'], 'app')
+                os.path.join(params['root_dir'], 'src')
             ),
         )
 

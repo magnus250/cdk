@@ -5,15 +5,14 @@ from dotenv import load_dotenv
 
 from aws_cdk import core
 
-from cdk.web_service import WebServiceStack
-from cdk.pipeline_stack import PipelineStack
+from cdk import WebServiceStack
 
 
 load_dotenv('secrets/local.env')
 
 params = dict(
     root_dir=os.path.dirname(__file__),
-    prefix='web-service',
+    prefix='web-service-base',
     env=dict(
         account=os.environ['AWS_ACCOUNT'],
         region=os.environ['AWS_REGION'],
@@ -25,11 +24,5 @@ params = dict(
 app = core.App()
 
 WebServiceStack(app, f"{params['prefix']}-stack", params=params)
-
-PipelineStack(
-    app, f"{params['prefix']}-pipeline-stack",
-    params=params,
-    env=params['env'],
-)
 
 app.synth()
