@@ -4,10 +4,11 @@ from aws_cdk import (
     core,
     aws_lambda as _lambda,
     aws_apigateway as apigateway,
+    aws_cloudformation as cloudformation,
 )
 
 
-class BackendStack(core.Stack):
+class BackendStack(cloudformation.NestedStack):
 
     def __init__(self, scope: core.Construct, construct_id: str,
                  *, params: dict, **kwargs) -> None:
