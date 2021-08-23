@@ -37,6 +37,11 @@ class RdsStack(cloudformation.NestedStack):
             self, f"{prefix}-vpc", is_default=True
         )
 
+        self.db_security_group = ec2.SecurityGroup(
+            self, f"{prefix}-db-security-group",
+            security_group_name=f"{prefix}-db-security-group",
+            vpc=vpc,
+        )
         # self.db_security_group = ec2.CfnSecurityGroup(
         #     self,
         #     f"{prefix}-security_group",
@@ -69,7 +74,7 @@ class RdsStack(cloudformation.NestedStack):
             port=5432,
             credentials=credentials,
             security_groups=[
-                # self.db_security_group
+                self.db_security_group
             ]
         )
 

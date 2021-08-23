@@ -13,3 +13,4 @@ class AppStack(core.Stack):
 
         self.rds = RdsStack(self, f"{params['prefix']}-rds-stack", params=params)
         self.backend = BackendStack(self, f"{params['prefix']}-backend-stack", params=params)
+        self.backend.add_dependency(self.rds)

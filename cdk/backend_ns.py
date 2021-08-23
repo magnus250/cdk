@@ -21,7 +21,14 @@ class BackendStack(cloudformation.NestedStack):
             code=_lambda.DockerImageCode.from_image_asset(
                 os.path.join(params['root_dir'], 'src')
             ),
+            environment=dict(
+                SETTINGS_PATH='settings.prod',
+                AWS_SECRET_NAME=scope.rds.credentials.secret_name,
+                AWS_REGION_NAME=params['env']['region'],
+            )
         )
+
+        scope.rds.credentials.grant_read(handler.role)
 
         base_api = apigateway.RestApi(
             self,
