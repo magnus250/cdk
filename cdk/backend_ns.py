@@ -25,7 +25,8 @@ class BackendStack(cloudformation.NestedStack):
                 SETTINGS_PATH='settings.prod',
                 AWS_SECRET_NAME=scope.rds.credentials.secret_name,
                 AWS_REGION_NAME=params['env']['region'],
-            )
+            ),
+            timeout=core.Duration.seconds(30),
         )
 
         scope.rds.credentials.grant_read(handler.role)

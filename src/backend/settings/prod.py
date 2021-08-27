@@ -15,8 +15,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['*']
 # CORS_ORIGIN_ALLOW_ALL = True
 
-# DATABASES = {'default': get_db_connection_params(secret_variables)}
-DATABASES = {}
+DATABASES = {'default': get_db_connection_params(secret_variables)}
 
 REST_FRAMEWORK.update(
     {'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',)}
